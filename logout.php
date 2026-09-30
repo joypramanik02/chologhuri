@@ -1,4 +1,32 @@
-<?php session_start();
-session_destroy();
-header('Location:index.php');
-exit; ?>
+<?php
+require_once __DIR__ . '/includes/db.php';
+
+/*
+|--------------------------------------------------------------------------
+| Clear User Session
+|--------------------------------------------------------------------------
+*/
+
+unset($_SESSION['user_id']);
+unset($_SESSION['user_name']);
+unset($_SESSION['user_email']);
+
+/*
+|--------------------------------------------------------------------------
+| Regenerate Session ID
+|--------------------------------------------------------------------------
+*/
+
+session_regenerate_id(true);
+
+/*
+|--------------------------------------------------------------------------
+| Redirect
+|--------------------------------------------------------------------------
+*/
+
+redirectWithMessage(
+    'index.php',
+    'You have been logged out successfully.',
+    'success'
+);
